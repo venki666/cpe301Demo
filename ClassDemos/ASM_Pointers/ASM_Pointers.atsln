@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "ASM_Pointers", "ASM_Pointers\ASM_Pointers.asmproj", "{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}"
+EndProject
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "ASM_pointer_division", "ASM_pointer_division\ASM_pointer_division.asmproj", "{9A5FC9ED-51AA-41F3-8351-5B3DF1FEE420}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Debug|AVR.ActiveCfg = Debug|AVR
+		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Debug|AVR.Build.0 = Debug|AVR
+		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Release|AVR.ActiveCfg = Release|AVR
+		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Release|AVR.Build.0 = Release|AVR
+		{9A5FC9ED-51AA-41F3-8351-5B3DF1FEE420}.Debug|AVR.ActiveCfg = Debug|AVR
+		{9A5FC9ED-51AA-41F3-8351-5B3DF1FEE420}.Debug|AVR.Build.0 = Debug|AVR
+		{9A5FC9ED-51AA-41F3-8351-5B3DF1FEE420}.Release|AVR.ActiveCfg = Release|AVR
+		{9A5FC9ED-51AA-41F3-8351-5B3DF1FEE420}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

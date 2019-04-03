@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\Debug\Assignment1B.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Assignment1B.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Assignment1B.map</FILE>
+  <FILE>Assignment1B.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>8</LINE></RESET>
+  <START><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>36</LINE></START>
+  <DIVBYFIVE><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>45</LINE></DIVBYFIVE>
+  <DIVBAD><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>59</LINE></DIVBAD>
+  <DIVGOOD><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>53</LINE></DIVGOOD>
+  <DONE><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>66</LINE></DONE>
+  <NOTYET><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>72</LINE></NOTYET>
+  <FIN><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\class_demos\Assignment1B\main.asm</FILE><LINE>76</LINE></FIN>
+ </LABELS>
+</ASSEMBLER_INFO>
