@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "DC_Motor_Control", "DC_Motor_Control\ATmega16_DC_Motor_Control\DC_Motor_Control.cproj", "{85711715-A34D-4617-ABA9-F9BD0E53D943}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Servo_Motor", "Servo_Motor\ATmega16_Servo_Motor\Servo_Motor.cproj", "{3E52237B-9EB2-4CF7-B05C-07A75166849D}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Stepper_Control", "Stepper_Control\ATmega32_Stepper_Control\Stepper_Control.cproj", "{75378812-0C92-4910-AF51-E7B9B1F15334}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "DC_Motor_L298N", "DC_Motor_L298N\DC_Motor_L298N.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "DRV8833_Motor_Control", "DRV8833_Motor_Control\DRV8833_Motor_Control.cproj", "{95BEE510-5ED2-41BE-9CBB-2A492FA97F45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Debug|AVR.ActiveCfg = Debug|AVR
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Debug|AVR.Build.0 = Debug|AVR
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Release|AVR.ActiveCfg = Release|AVR
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Release|AVR.Build.0 = Release|AVR
+		{3E52237B-9EB2-4CF7-B05C-07A75166849D}.Debug|AVR.ActiveCfg = Debug|AVR
+		{3E52237B-9EB2-4CF7-B05C-07A75166849D}.Debug|AVR.Build.0 = Debug|AVR
+		{3E52237B-9EB2-4CF7-B05C-07A75166849D}.Release|AVR.ActiveCfg = Release|AVR
+		{3E52237B-9EB2-4CF7-B05C-07A75166849D}.Release|AVR.Build.0 = Release|AVR
+		{75378812-0C92-4910-AF51-E7B9B1F15334}.Debug|AVR.ActiveCfg = Debug|AVR
+		{75378812-0C92-4910-AF51-E7B9B1F15334}.Debug|AVR.Build.0 = Debug|AVR
+		{75378812-0C92-4910-AF51-E7B9B1F15334}.Release|AVR.ActiveCfg = Release|AVR
+		{75378812-0C92-4910-AF51-E7B9B1F15334}.Release|AVR.Build.0 = Release|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
+		{95BEE510-5ED2-41BE-9CBB-2A492FA97F45}.Debug|AVR.ActiveCfg = Debug|AVR
+		{95BEE510-5ED2-41BE-9CBB-2A492FA97F45}.Debug|AVR.Build.0 = Debug|AVR
+		{95BEE510-5ED2-41BE-9CBB-2A492FA97F45}.Release|AVR.ActiveCfg = Release|AVR
+		{95BEE510-5ED2-41BE-9CBB-2A492FA97F45}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

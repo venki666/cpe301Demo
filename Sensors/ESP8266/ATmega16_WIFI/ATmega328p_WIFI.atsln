@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega328p_ESP8266", "ATmega16_WIFI\ATmega328p_ESP8266.cproj", "{C17A5BE3-E9E7-4B34-A86D-A52B702A67DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C17A5BE3-E9E7-4B34-A86D-A52B702A67DF}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C17A5BE3-E9E7-4B34-A86D-A52B702A67DF}.Debug|AVR.Build.0 = Debug|AVR
+		{C17A5BE3-E9E7-4B34-A86D-A52B702A67DF}.Release|AVR.ActiveCfg = Release|AVR
+		{C17A5BE3-E9E7-4B34-A86D-A52B702A67DF}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

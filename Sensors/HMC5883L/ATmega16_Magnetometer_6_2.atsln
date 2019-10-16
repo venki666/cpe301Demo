@@ -1,0 +1,20 @@
+
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega16_Magnetometer", "ATmega16_Magnetometer\ATmega16_Magnetometer_6_2.cproj", "{F471016A-ECB1-4872-9A8F-C9F4151A14BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F471016A-ECB1-4872-9A8F-C9F4151A14BB}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F471016A-ECB1-4872-9A8F-C9F4151A14BB}.Debug|AVR.Build.0 = Debug|AVR
+		{F471016A-ECB1-4872-9A8F-C9F4151A14BB}.Release|AVR.ActiveCfg = Release|AVR
+		{F471016A-ECB1-4872-9A8F-C9F4151A14BB}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

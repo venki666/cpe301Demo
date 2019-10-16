@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MPU6050_Plot", "MPU6050_Plot.cproj", "{33B90DB1-AC65-423D-9A78-4C87904613D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33B90DB1-AC65-423D-9A78-4C87904613D9}.Debug|AVR.ActiveCfg = Debug|AVR
+		{33B90DB1-AC65-423D-9A78-4C87904613D9}.Debug|AVR.Build.0 = Debug|AVR
+		{33B90DB1-AC65-423D-9A78-4C87904613D9}.Release|AVR.ActiveCfg = Release|AVR
+		{33B90DB1-AC65-423D-9A78-4C87904613D9}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

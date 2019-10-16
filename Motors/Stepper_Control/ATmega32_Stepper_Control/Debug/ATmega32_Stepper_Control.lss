@@ -1,0 +1,354 @@
+
+ATmega32_Stepper_Control.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001d8  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000022c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000022c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000025c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  00000298  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000099b  00000000  00000000  000002b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005a8  00000000  00000000  00000c53  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003d9  00000000  00000000  000011fb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  000015d4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000385  00000000  00000000  000015f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000082  00000000  00000000  0000197d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  000019ff  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 ea 00 	jmp	0x1d4	; 0x1d4 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+
+
+int main(void)
+{
+	int period;
+	DDRD = 0x0F;					/* Make PORTD lower pins as output */
+  6c:	8f e0       	ldi	r24, 0x0F	; 15
+  6e:	81 bb       	out	0x11, r24	; 17
+#include <avr/io.h>					/* Include AVR std. library file */
+#include <util/delay.h>				/* Include delay header file */
+
+
+int main(void)
+{
+  70:	bc e0       	ldi	r27, 0x0C	; 12
+  72:	a0 e0       	ldi	r26, 0x00	; 0
+	period = 100;					/* Set period in between two steps of Stepper Motor */
+	while (1)
+	{
+		for(int i=0;i<12;i++)		/* Rotate Stepper Motor Anticlockwise with Half step sequence; Half step angle 3.75 */
+		{
+			PORTD = 0x09;
+  74:	29 e0       	ldi	r18, 0x09	; 9
+			_delay_ms(period);
+			PORTD = 0x08;
+  76:	f8 e0       	ldi	r31, 0x08	; 8
+			_delay_ms(period);
+			PORTD = 0x0C;
+  78:	5c e0       	ldi	r21, 0x0C	; 12
+			_delay_ms(period);
+			PORTD = 0x04;
+  7a:	e4 e0       	ldi	r30, 0x04	; 4
+			_delay_ms(period);
+			PORTD = 0x06;
+  7c:	46 e0       	ldi	r20, 0x06	; 6
+			_delay_ms(period);
+			PORTD = 0x02;
+  7e:	72 e0       	ldi	r23, 0x02	; 2
+			_delay_ms(period);
+			PORTD = 0x03;
+  80:	33 e0       	ldi	r19, 0x03	; 3
+			_delay_ms(period);
+			PORTD = 0x01;
+  82:	61 e0       	ldi	r22, 0x01	; 1
+#include <avr/io.h>					/* Include AVR std. library file */
+#include <util/delay.h>				/* Include delay header file */
+
+
+int main(void)
+{
+  84:	8b 2f       	mov	r24, r27
+  86:	9a 2f       	mov	r25, r26
+	period = 100;					/* Set period in between two steps of Stepper Motor */
+	while (1)
+	{
+		for(int i=0;i<12;i++)		/* Rotate Stepper Motor Anticlockwise with Half step sequence; Half step angle 3.75 */
+		{
+			PORTD = 0x09;
+  88:	22 bb       	out	0x12, r18	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  8a:	1f ef       	ldi	r17, 0xFF	; 255
+  8c:	c0 e7       	ldi	r28, 0x70	; 112
+  8e:	d2 e0       	ldi	r29, 0x02	; 2
+  90:	11 50       	subi	r17, 0x01	; 1
+  92:	c0 40       	sbci	r28, 0x00	; 0
+  94:	d0 40       	sbci	r29, 0x00	; 0
+  96:	e1 f7       	brne	.-8      	; 0x90 <main+0x24>
+  98:	00 c0       	rjmp	.+0      	; 0x9a <main+0x2e>
+  9a:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x08;
+  9c:	f2 bb       	out	0x12, r31	; 18
+  9e:	1f ef       	ldi	r17, 0xFF	; 255
+  a0:	c0 e7       	ldi	r28, 0x70	; 112
+  a2:	d2 e0       	ldi	r29, 0x02	; 2
+  a4:	11 50       	subi	r17, 0x01	; 1
+  a6:	c0 40       	sbci	r28, 0x00	; 0
+  a8:	d0 40       	sbci	r29, 0x00	; 0
+  aa:	e1 f7       	brne	.-8      	; 0xa4 <main+0x38>
+  ac:	00 c0       	rjmp	.+0      	; 0xae <main+0x42>
+  ae:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x0C;
+  b0:	52 bb       	out	0x12, r21	; 18
+  b2:	1f ef       	ldi	r17, 0xFF	; 255
+  b4:	c0 e7       	ldi	r28, 0x70	; 112
+  b6:	d2 e0       	ldi	r29, 0x02	; 2
+  b8:	11 50       	subi	r17, 0x01	; 1
+  ba:	c0 40       	sbci	r28, 0x00	; 0
+  bc:	d0 40       	sbci	r29, 0x00	; 0
+  be:	e1 f7       	brne	.-8      	; 0xb8 <main+0x4c>
+  c0:	00 c0       	rjmp	.+0      	; 0xc2 <main+0x56>
+  c2:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x04;
+  c4:	e2 bb       	out	0x12, r30	; 18
+  c6:	1f ef       	ldi	r17, 0xFF	; 255
+  c8:	c0 e7       	ldi	r28, 0x70	; 112
+  ca:	d2 e0       	ldi	r29, 0x02	; 2
+  cc:	11 50       	subi	r17, 0x01	; 1
+  ce:	c0 40       	sbci	r28, 0x00	; 0
+  d0:	d0 40       	sbci	r29, 0x00	; 0
+  d2:	e1 f7       	brne	.-8      	; 0xcc <main+0x60>
+  d4:	00 c0       	rjmp	.+0      	; 0xd6 <main+0x6a>
+  d6:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x06;
+  d8:	42 bb       	out	0x12, r20	; 18
+  da:	1f ef       	ldi	r17, 0xFF	; 255
+  dc:	c0 e7       	ldi	r28, 0x70	; 112
+  de:	d2 e0       	ldi	r29, 0x02	; 2
+  e0:	11 50       	subi	r17, 0x01	; 1
+  e2:	c0 40       	sbci	r28, 0x00	; 0
+  e4:	d0 40       	sbci	r29, 0x00	; 0
+  e6:	e1 f7       	brne	.-8      	; 0xe0 <main+0x74>
+  e8:	00 c0       	rjmp	.+0      	; 0xea <main+0x7e>
+  ea:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x02;
+  ec:	72 bb       	out	0x12, r23	; 18
+  ee:	1f ef       	ldi	r17, 0xFF	; 255
+  f0:	c0 e7       	ldi	r28, 0x70	; 112
+  f2:	d2 e0       	ldi	r29, 0x02	; 2
+  f4:	11 50       	subi	r17, 0x01	; 1
+  f6:	c0 40       	sbci	r28, 0x00	; 0
+  f8:	d0 40       	sbci	r29, 0x00	; 0
+  fa:	e1 f7       	brne	.-8      	; 0xf4 <main+0x88>
+  fc:	00 c0       	rjmp	.+0      	; 0xfe <main+0x92>
+  fe:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x03;
+ 100:	32 bb       	out	0x12, r19	; 18
+ 102:	1f ef       	ldi	r17, 0xFF	; 255
+ 104:	c0 e7       	ldi	r28, 0x70	; 112
+ 106:	d2 e0       	ldi	r29, 0x02	; 2
+ 108:	11 50       	subi	r17, 0x01	; 1
+ 10a:	c0 40       	sbci	r28, 0x00	; 0
+ 10c:	d0 40       	sbci	r29, 0x00	; 0
+ 10e:	e1 f7       	brne	.-8      	; 0x108 <main+0x9c>
+ 110:	00 c0       	rjmp	.+0      	; 0x112 <main+0xa6>
+ 112:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x01;
+ 114:	62 bb       	out	0x12, r22	; 18
+ 116:	1f ef       	ldi	r17, 0xFF	; 255
+ 118:	c0 e7       	ldi	r28, 0x70	; 112
+ 11a:	d2 e0       	ldi	r29, 0x02	; 2
+ 11c:	11 50       	subi	r17, 0x01	; 1
+ 11e:	c0 40       	sbci	r28, 0x00	; 0
+ 120:	d0 40       	sbci	r29, 0x00	; 0
+ 122:	e1 f7       	brne	.-8      	; 0x11c <main+0xb0>
+ 124:	00 c0       	rjmp	.+0      	; 0x126 <main+0xba>
+ 126:	00 00       	nop
+ 128:	01 97       	sbiw	r24, 0x01	; 1
+	int period;
+	DDRD = 0x0F;					/* Make PORTD lower pins as output */
+	period = 100;					/* Set period in between two steps of Stepper Motor */
+	while (1)
+	{
+		for(int i=0;i<12;i++)		/* Rotate Stepper Motor Anticlockwise with Half step sequence; Half step angle 3.75 */
+ 12a:	09 f0       	breq	.+2      	; 0x12e <main+0xc2>
+ 12c:	ad cf       	rjmp	.-166    	; 0x88 <main+0x1c>
+			PORTD = 0x03;
+			_delay_ms(period);
+			PORTD = 0x01;
+			_delay_ms(period);
+		}
+			PORTD = 0x09;
+ 12e:	22 bb       	out	0x12, r18	; 18
+ 130:	1f ef       	ldi	r17, 0xFF	; 255
+ 132:	80 e7       	ldi	r24, 0x70	; 112
+ 134:	92 e0       	ldi	r25, 0x02	; 2
+ 136:	11 50       	subi	r17, 0x01	; 1
+ 138:	80 40       	sbci	r24, 0x00	; 0
+ 13a:	90 40       	sbci	r25, 0x00	; 0
+ 13c:	e1 f7       	brne	.-8      	; 0x136 <main+0xca>
+ 13e:	00 c0       	rjmp	.+0      	; 0x140 <main+0xd4>
+ 140:	00 00       	nop
+ 142:	cf ef       	ldi	r28, 0xFF	; 255
+ 144:	d9 e6       	ldi	r29, 0x69	; 105
+ 146:	18 e1       	ldi	r17, 0x18	; 24
+ 148:	c1 50       	subi	r28, 0x01	; 1
+ 14a:	d0 40       	sbci	r29, 0x00	; 0
+ 14c:	10 40       	sbci	r17, 0x00	; 0
+ 14e:	e1 f7       	brne	.-8      	; 0x148 <main+0xdc>
+ 150:	00 c0       	rjmp	.+0      	; 0x152 <main+0xe6>
+ 152:	00 00       	nop
+ 154:	8b 2f       	mov	r24, r27
+ 156:	9a 2f       	mov	r25, r26
+			_delay_ms(period);
+			_delay_ms(1000);
+		for(int i=0;i<12;i++)		/* Rotate Stepper Motor Anticlockwise with Full step sequence; Full step angle 7.5 */
+		{
+			PORTD = 0x09;
+ 158:	22 bb       	out	0x12, r18	; 18
+ 15a:	cf ef       	ldi	r28, 0xFF	; 255
+ 15c:	d0 e7       	ldi	r29, 0x70	; 112
+ 15e:	12 e0       	ldi	r17, 0x02	; 2
+ 160:	c1 50       	subi	r28, 0x01	; 1
+ 162:	d0 40       	sbci	r29, 0x00	; 0
+ 164:	10 40       	sbci	r17, 0x00	; 0
+ 166:	e1 f7       	brne	.-8      	; 0x160 <main+0xf4>
+ 168:	00 c0       	rjmp	.+0      	; 0x16a <main+0xfe>
+ 16a:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x03;
+ 16c:	32 bb       	out	0x12, r19	; 18
+ 16e:	cf ef       	ldi	r28, 0xFF	; 255
+ 170:	d0 e7       	ldi	r29, 0x70	; 112
+ 172:	12 e0       	ldi	r17, 0x02	; 2
+ 174:	c1 50       	subi	r28, 0x01	; 1
+ 176:	d0 40       	sbci	r29, 0x00	; 0
+ 178:	10 40       	sbci	r17, 0x00	; 0
+ 17a:	e1 f7       	brne	.-8      	; 0x174 <main+0x108>
+ 17c:	00 c0       	rjmp	.+0      	; 0x17e <main+0x112>
+ 17e:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x06;
+ 180:	42 bb       	out	0x12, r20	; 18
+ 182:	cf ef       	ldi	r28, 0xFF	; 255
+ 184:	d0 e7       	ldi	r29, 0x70	; 112
+ 186:	12 e0       	ldi	r17, 0x02	; 2
+ 188:	c1 50       	subi	r28, 0x01	; 1
+ 18a:	d0 40       	sbci	r29, 0x00	; 0
+ 18c:	10 40       	sbci	r17, 0x00	; 0
+ 18e:	e1 f7       	brne	.-8      	; 0x188 <main+0x11c>
+ 190:	00 c0       	rjmp	.+0      	; 0x192 <main+0x126>
+ 192:	00 00       	nop
+			_delay_ms(period);
+			PORTD = 0x0C;
+ 194:	52 bb       	out	0x12, r21	; 18
+ 196:	cf ef       	ldi	r28, 0xFF	; 255
+ 198:	d0 e7       	ldi	r29, 0x70	; 112
+ 19a:	12 e0       	ldi	r17, 0x02	; 2
+ 19c:	c1 50       	subi	r28, 0x01	; 1
+ 19e:	d0 40       	sbci	r29, 0x00	; 0
+ 1a0:	10 40       	sbci	r17, 0x00	; 0
+ 1a2:	e1 f7       	brne	.-8      	; 0x19c <main+0x130>
+ 1a4:	00 c0       	rjmp	.+0      	; 0x1a6 <main+0x13a>
+ 1a6:	00 00       	nop
+ 1a8:	01 97       	sbiw	r24, 0x01	; 1
+			_delay_ms(period);
+		}
+			PORTD = 0x09;
+			_delay_ms(period);
+			_delay_ms(1000);
+		for(int i=0;i<12;i++)		/* Rotate Stepper Motor Anticlockwise with Full step sequence; Full step angle 7.5 */
+ 1aa:	b1 f6       	brne	.-84     	; 0x158 <main+0xec>
+			PORTD = 0x06;
+			_delay_ms(period);
+			PORTD = 0x0C;
+			_delay_ms(period);
+		}
+			PORTD = 0x09;
+ 1ac:	22 bb       	out	0x12, r18	; 18
+ 1ae:	8f ef       	ldi	r24, 0xFF	; 255
+ 1b0:	90 e7       	ldi	r25, 0x70	; 112
+ 1b2:	c2 e0       	ldi	r28, 0x02	; 2
+ 1b4:	81 50       	subi	r24, 0x01	; 1
+ 1b6:	90 40       	sbci	r25, 0x00	; 0
+ 1b8:	c0 40       	sbci	r28, 0x00	; 0
+ 1ba:	e1 f7       	brne	.-8      	; 0x1b4 <main+0x148>
+ 1bc:	00 c0       	rjmp	.+0      	; 0x1be <main+0x152>
+ 1be:	00 00       	nop
+ 1c0:	df ef       	ldi	r29, 0xFF	; 255
+ 1c2:	19 e6       	ldi	r17, 0x69	; 105
+ 1c4:	88 e1       	ldi	r24, 0x18	; 24
+ 1c6:	d1 50       	subi	r29, 0x01	; 1
+ 1c8:	10 40       	sbci	r17, 0x00	; 0
+ 1ca:	80 40       	sbci	r24, 0x00	; 0
+ 1cc:	e1 f7       	brne	.-8      	; 0x1c6 <main+0x15a>
+ 1ce:	00 c0       	rjmp	.+0      	; 0x1d0 <main+0x164>
+ 1d0:	00 00       	nop
+ 1d2:	58 cf       	rjmp	.-336    	; 0x84 <main+0x18>
+
+000001d4 <_exit>:
+ 1d4:	f8 94       	cli
+
+000001d6 <__stop_program>:
+ 1d6:	ff cf       	rjmp	.-2      	; 0x1d6 <__stop_program>

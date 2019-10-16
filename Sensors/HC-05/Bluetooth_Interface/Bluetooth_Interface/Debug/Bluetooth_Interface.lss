@@ -1,0 +1,292 @@
+
+Bluetooth_Interface.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000194  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000024  00800060  00000194  00000208  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000022c  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000058  00000000  00000000  0000025c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000281  00000000  00000000  000002b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000001a3  00000000  00000000  00000535  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   000001d6  00000000  00000000  000006d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000084  00000000  00000000  000008b0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000001a8  00000000  00000000  00000934  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000103  00000000  00000000  00000adc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000038  00000000  00000000  00000bdf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e4 e9       	ldi	r30, 0x94	; 148
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a4 38       	cpi	r26, 0x84	; 132
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+  76:	0e 94 41 00 	call	0x82	; 0x82 <main>
+  7a:	0c 94 c8 00 	jmp	0x190	; 0x190 <_exit>
+
+0000007e <__bad_interrupt>:
+  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000082 <main>:
+#define LED PORTB					/* connected LED on PORT pin */
+
+int main(void)
+{
+	char Data_in;
+    DDRB = 0xff;							/* make PORT as output port */
+  82:	8f ef       	ldi	r24, 0xFF	; 255
+  84:	87 bb       	out	0x17, r24	; 23
+	USART_Init(9600);						/* initialize USART with 9600 baud rate */
+  86:	60 e8       	ldi	r22, 0x80	; 128
+  88:	75 e2       	ldi	r23, 0x25	; 37
+  8a:	80 e0       	ldi	r24, 0x00	; 0
+  8c:	90 e0       	ldi	r25, 0x00	; 0
+  8e:	0e 94 61 00 	call	0xc2	; 0xc2 <USART_Init>
+	LED = 0;
+  92:	18 ba       	out	0x18, r1	; 24
+	
+	while(1)
+	{
+		Data_in = USART_RxChar();						/* receive data from Bluetooth device*/
+  94:	0e 94 8f 00 	call	0x11e	; 0x11e <USART_RxChar>
+		if(Data_in =='1')
+  98:	81 33       	cpi	r24, 0x31	; 49
+  9a:	31 f4       	brne	.+12     	; 0xa8 <main+0x26>
+		{
+			LED |= (1<<PB0);							/* Turn ON LED */
+  9c:	c0 9a       	sbi	0x18, 0	; 24
+			USART_SendString("LED_ON");					/* send status of LED i.e. LED ON */
+  9e:	80 e6       	ldi	r24, 0x60	; 96
+  a0:	90 e0       	ldi	r25, 0x00	; 0
+  a2:	0e 94 97 00 	call	0x12e	; 0x12e <USART_SendString>
+  a6:	f6 cf       	rjmp	.-20     	; 0x94 <main+0x12>
+			
+		}
+		else if(Data_in =='2')
+  a8:	82 33       	cpi	r24, 0x32	; 50
+  aa:	31 f4       	brne	.+12     	; 0xb8 <main+0x36>
+		{
+			LED &= ~(1<<PB0);							/* Turn OFF LED */
+  ac:	c0 98       	cbi	0x18, 0	; 24
+			USART_SendString("LED_OFF"); 				/* send status of LED i.e. LED OFF */
+  ae:	87 e6       	ldi	r24, 0x67	; 103
+  b0:	90 e0       	ldi	r25, 0x00	; 0
+  b2:	0e 94 97 00 	call	0x12e	; 0x12e <USART_SendString>
+  b6:	ee cf       	rjmp	.-36     	; 0x94 <main+0x12>
+		}
+		else
+			USART_SendString("Select proper option");	/* send message for selecting proper option */
+  b8:	8f e6       	ldi	r24, 0x6F	; 111
+  ba:	90 e0       	ldi	r25, 0x00	; 0
+  bc:	0e 94 97 00 	call	0x12e	; 0x12e <USART_SendString>
+  c0:	e9 cf       	rjmp	.-46     	; 0x94 <main+0x12>
+
+000000c2 <USART_Init>:
+
+#include "USART_RS232_H_file.h"						/* Include USART header file */
+
+void USART_Init(unsigned long BAUDRATE)				/* USART initialize function */
+{ 
+	UCSRB |= (1 << RXEN) | (1 << TXEN);				/* Enable USART transmitter and receiver */
+  c2:	2a b1       	in	r18, 0x0a	; 10
+  c4:	28 61       	ori	r18, 0x18	; 24
+  c6:	2a b9       	out	0x0a, r18	; 10
+	UCSRC |= (1 << URSEL)| (1 << UCSZ0) | (1 << UCSZ1);	/* Write USCRC for 8 bit data and 1 stop bit */ 
+  c8:	20 b5       	in	r18, 0x20	; 32
+  ca:	26 68       	ori	r18, 0x86	; 134
+  cc:	20 bd       	out	0x20, r18	; 32
+	UBRRL = BAUD_PRESCALE;							/* Load UBRRL with lower 8 bit of prescale value */
+  ce:	dc 01       	movw	r26, r24
+  d0:	cb 01       	movw	r24, r22
+  d2:	88 0f       	add	r24, r24
+  d4:	99 1f       	adc	r25, r25
+  d6:	aa 1f       	adc	r26, r26
+  d8:	bb 1f       	adc	r27, r27
+  da:	88 0f       	add	r24, r24
+  dc:	99 1f       	adc	r25, r25
+  de:	aa 1f       	adc	r26, r26
+  e0:	bb 1f       	adc	r27, r27
+  e2:	9c 01       	movw	r18, r24
+  e4:	ad 01       	movw	r20, r26
+  e6:	22 0f       	add	r18, r18
+  e8:	33 1f       	adc	r19, r19
+  ea:	44 1f       	adc	r20, r20
+  ec:	55 1f       	adc	r21, r21
+  ee:	22 0f       	add	r18, r18
+  f0:	33 1f       	adc	r19, r19
+  f2:	44 1f       	adc	r20, r20
+  f4:	55 1f       	adc	r21, r21
+  f6:	60 e0       	ldi	r22, 0x00	; 0
+  f8:	72 e1       	ldi	r23, 0x12	; 18
+  fa:	8a e7       	ldi	r24, 0x7A	; 122
+  fc:	90 e0       	ldi	r25, 0x00	; 0
+  fe:	0e 94 a6 00 	call	0x14c	; 0x14c <__udivmodsi4>
+ 102:	8f ef       	ldi	r24, 0xFF	; 255
+ 104:	82 0f       	add	r24, r18
+ 106:	89 b9       	out	0x09, r24	; 9
+	UBRRH = (BAUD_PRESCALE >> 8);					/* Load UBRRH with upper 8 bit of prescale value */
+ 108:	da 01       	movw	r26, r20
+ 10a:	c9 01       	movw	r24, r18
+ 10c:	01 97       	sbiw	r24, 0x01	; 1
+ 10e:	a1 09       	sbc	r26, r1
+ 110:	b1 09       	sbc	r27, r1
+ 112:	89 2f       	mov	r24, r25
+ 114:	9a 2f       	mov	r25, r26
+ 116:	ab 2f       	mov	r26, r27
+ 118:	bb 27       	eor	r27, r27
+ 11a:	80 bd       	out	0x20, r24	; 32
+ 11c:	08 95       	ret
+
+0000011e <USART_RxChar>:
+}
+
+char USART_RxChar()									/* Data receiving function */
+{
+	while (!(UCSRA & (1 << RXC)));					/* Wait until new data receive */
+ 11e:	5f 9b       	sbis	0x0b, 7	; 11
+ 120:	fe cf       	rjmp	.-4      	; 0x11e <USART_RxChar>
+	return(UDR);									/* Get and return received data */ 
+ 122:	8c b1       	in	r24, 0x0c	; 12
+}
+ 124:	08 95       	ret
+
+00000126 <USART_TxChar>:
+
+void USART_TxChar(char data)						/* Data transmitting function */
+{
+	UDR = data;										/* Write data to be transmitting in UDR */
+ 126:	8c b9       	out	0x0c, r24	; 12
+	while (!(UCSRA & (1<<UDRE)));					/* Wait until data transmit and buffer get empty */
+ 128:	5d 9b       	sbis	0x0b, 5	; 11
+ 12a:	fe cf       	rjmp	.-4      	; 0x128 <USART_TxChar+0x2>
+}
+ 12c:	08 95       	ret
+
+0000012e <USART_SendString>:
+
+void USART_SendString(char *str)					/* Send string of USART data function */ 
+{
+ 12e:	cf 93       	push	r28
+ 130:	df 93       	push	r29
+ 132:	ec 01       	movw	r28, r24
+	int i=0;																	
+	while (str[i]!=0)
+ 134:	88 81       	ld	r24, Y
+ 136:	88 23       	and	r24, r24
+ 138:	31 f0       	breq	.+12     	; 0x146 <USART_SendString+0x18>
+ 13a:	21 96       	adiw	r28, 0x01	; 1
+	{
+		USART_TxChar(str[i]);						/* Send each char of string till the NULL */
+ 13c:	0e 94 93 00 	call	0x126	; 0x126 <USART_TxChar>
+}
+
+void USART_SendString(char *str)					/* Send string of USART data function */ 
+{
+	int i=0;																	
+	while (str[i]!=0)
+ 140:	89 91       	ld	r24, Y+
+ 142:	81 11       	cpse	r24, r1
+ 144:	fb cf       	rjmp	.-10     	; 0x13c <USART_SendString+0xe>
+	{
+		USART_TxChar(str[i]);						/* Send each char of string till the NULL */
+		i++;
+	}
+ 146:	df 91       	pop	r29
+ 148:	cf 91       	pop	r28
+ 14a:	08 95       	ret
+
+0000014c <__udivmodsi4>:
+ 14c:	a1 e2       	ldi	r26, 0x21	; 33
+ 14e:	1a 2e       	mov	r1, r26
+ 150:	aa 1b       	sub	r26, r26
+ 152:	bb 1b       	sub	r27, r27
+ 154:	fd 01       	movw	r30, r26
+ 156:	0d c0       	rjmp	.+26     	; 0x172 <__udivmodsi4_ep>
+
+00000158 <__udivmodsi4_loop>:
+ 158:	aa 1f       	adc	r26, r26
+ 15a:	bb 1f       	adc	r27, r27
+ 15c:	ee 1f       	adc	r30, r30
+ 15e:	ff 1f       	adc	r31, r31
+ 160:	a2 17       	cp	r26, r18
+ 162:	b3 07       	cpc	r27, r19
+ 164:	e4 07       	cpc	r30, r20
+ 166:	f5 07       	cpc	r31, r21
+ 168:	20 f0       	brcs	.+8      	; 0x172 <__udivmodsi4_ep>
+ 16a:	a2 1b       	sub	r26, r18
+ 16c:	b3 0b       	sbc	r27, r19
+ 16e:	e4 0b       	sbc	r30, r20
+ 170:	f5 0b       	sbc	r31, r21
+
+00000172 <__udivmodsi4_ep>:
+ 172:	66 1f       	adc	r22, r22
+ 174:	77 1f       	adc	r23, r23
+ 176:	88 1f       	adc	r24, r24
+ 178:	99 1f       	adc	r25, r25
+ 17a:	1a 94       	dec	r1
+ 17c:	69 f7       	brne	.-38     	; 0x158 <__udivmodsi4_loop>
+ 17e:	60 95       	com	r22
+ 180:	70 95       	com	r23
+ 182:	80 95       	com	r24
+ 184:	90 95       	com	r25
+ 186:	9b 01       	movw	r18, r22
+ 188:	ac 01       	movw	r20, r24
+ 18a:	bd 01       	movw	r22, r26
+ 18c:	cf 01       	movw	r24, r30
+ 18e:	08 95       	ret
+
+00000190 <_exit>:
+ 190:	f8 94       	cli
+
+00000192 <__stop_program>:
+ 192:	ff cf       	rjmp	.-2      	; 0x192 <__stop_program>

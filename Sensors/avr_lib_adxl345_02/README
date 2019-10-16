@@ -1,0 +1,28 @@
+==================================================
+ADXL345 lib
+==================================================
+= Copyright (c) Davide Gironi, 2012              =
+= http://davidegironi.blogspot.it/               =
+==================================================
+
+
+ADXL345 3-axis Accelerometer AVR Atmega library.
+The ADXL345 is a small, thin, low power, 3-axis accelerometer with high
+resolution (13-bit) measurement at up to ±16 g. Digital output data is
+formatted as 16-bit twos complement and is acces-sible through either
+a SPI (3- or 4-wire) or I2C digital interface.
+
+User can setup measurement mode to 2/4/8/16G.
+Calibration is suggested to get more accurate paramenters.
+
+Setup parameters are stored in file adxl345.h
+
+
+Devel Notes
+-----------
+This library was developed on Eclipse, built with avr-gcc on Atmega8 @ 1MHz.
+
+
+License
+-------
+Please refer to LICENSE file for licensing information.

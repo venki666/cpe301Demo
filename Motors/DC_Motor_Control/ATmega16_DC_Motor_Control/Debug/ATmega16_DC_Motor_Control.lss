@@ -1,0 +1,241 @@
+
+ATmega16_DC_Motor_Control.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000012e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000001  00800060  00800060  000001a2  2**0
+                  ALLOC
+  2 .comment      00000030  00000000  00000000  000001a2  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000038  00000000  00000000  000001d2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000001e2  00000000  00000000  0000020a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000146  00000000  00000000  000003ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000018d  00000000  00000000  00000532  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000070  00000000  00000000  000006c0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000208  00000000  00000000  00000730  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000077  00000000  00000000  00000938  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000028  00000000  00000000  000009af  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__vector_1>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a1 36       	cpi	r26, 0x61	; 97
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 72 00 	call	0xe4	; 0xe4 <main>
+  74:	0c 94 95 00 	jmp	0x12a	; 0x12a <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <ADC_Init>:
+
+volatile uint8_t Direction = 0; 
+
+void ADC_Init()								/* ADC Initialization function */
+{
+	DDRA = 0x00;							/* Make ADC port as input */
+  7c:	1a ba       	out	0x1a, r1	; 26
+	ADCSRA = 0x87;							/* Enable ADC, with freq/128  */
+  7e:	87 e8       	ldi	r24, 0x87	; 135
+  80:	86 b9       	out	0x06, r24	; 6
+	ADMUX = 0x40;							/* Vref: Avcc, ADC channel: 0 */
+  82:	80 e4       	ldi	r24, 0x40	; 64
+  84:	87 b9       	out	0x07, r24	; 7
+  86:	08 95       	ret
+
+00000088 <ADC_Read>:
+}
+
+int ADC_Read(char channel)					/* ADC Read function */
+{
+	ADMUX = 0x40 | (channel & 0x07);		/* set input channel to read */
+  88:	87 70       	andi	r24, 0x07	; 7
+  8a:	80 64       	ori	r24, 0x40	; 64
+  8c:	87 b9       	out	0x07, r24	; 7
+	ADCSRA |= (1<<ADSC);					/* Start ADC conversion */
+  8e:	36 9a       	sbi	0x06, 6	; 6
+	while (!(ADCSRA & (1<<ADIF)));			/* Wait until end of conversion by polling ADC interrupt flag */
+  90:	34 9b       	sbis	0x06, 4	; 6
+  92:	fe cf       	rjmp	.-4      	; 0x90 <ADC_Read+0x8>
+	ADCSRA |= (1<<ADIF);					/* Clear interrupt flag */
+  94:	34 9a       	sbi	0x06, 4	; 6
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  96:	8f ec       	ldi	r24, 0xCF	; 207
+  98:	97 e0       	ldi	r25, 0x07	; 7
+  9a:	01 97       	sbiw	r24, 0x01	; 1
+  9c:	f1 f7       	brne	.-4      	; 0x9a <ADC_Read+0x12>
+  9e:	00 c0       	rjmp	.+0      	; 0xa0 <ADC_Read+0x18>
+  a0:	00 00       	nop
+	_delay_ms(1);							/* Wait a little bit */
+	return ADCW;							/* Return ADC word */
+  a2:	84 b1       	in	r24, 0x04	; 4
+  a4:	95 b1       	in	r25, 0x05	; 5
+}
+  a6:	08 95       	ret
+
+000000a8 <__vector_1>:
+
+ISR(INT0_vect)
+{
+  a8:	1f 92       	push	r1
+  aa:	0f 92       	push	r0
+  ac:	0f b6       	in	r0, 0x3f	; 63
+  ae:	0f 92       	push	r0
+  b0:	11 24       	eor	r1, r1
+  b2:	2f 93       	push	r18
+  b4:	8f 93       	push	r24
+  b6:	9f 93       	push	r25
+	Direction = ~Direction;					/* Toggle Direction */
+  b8:	80 91 60 00 	lds	r24, 0x0060
+  bc:	80 95       	com	r24
+  be:	80 93 60 00 	sts	0x0060, r24
+  c2:	2f e7       	ldi	r18, 0x7F	; 127
+  c4:	88 e3       	ldi	r24, 0x38	; 56
+  c6:	91 e0       	ldi	r25, 0x01	; 1
+  c8:	21 50       	subi	r18, 0x01	; 1
+  ca:	80 40       	sbci	r24, 0x00	; 0
+  cc:	90 40       	sbci	r25, 0x00	; 0
+  ce:	e1 f7       	brne	.-8      	; 0xc8 <__vector_1+0x20>
+  d0:	00 c0       	rjmp	.+0      	; 0xd2 <__vector_1+0x2a>
+  d2:	00 00       	nop
+	_delay_ms(50);							/* Software de-bouncing control delay */
+}
+  d4:	9f 91       	pop	r25
+  d6:	8f 91       	pop	r24
+  d8:	2f 91       	pop	r18
+  da:	0f 90       	pop	r0
+  dc:	0f be       	out	0x3f, r0	; 63
+  de:	0f 90       	pop	r0
+  e0:	1f 90       	pop	r1
+  e2:	18 95       	reti
+
+000000e4 <main>:
+
+int main(void)
+{
+	DDRC = 0xFF;							/* Make PORTC as output Port */
+  e4:	8f ef       	ldi	r24, 0xFF	; 255
+  e6:	84 bb       	out	0x14, r24	; 20
+	DDRD &= ~(1<<PD2);						/* Make INT0 pin as Input */
+  e8:	8a 98       	cbi	0x11, 2	; 17
+	DDRB |= (1<<PB3);						/* Make OC0 pin as Output */
+  ea:	bb 9a       	sbi	0x17, 3	; 23
+	GICR = (1<<INT0);						/* Enable INT0*/
+  ec:	80 e4       	ldi	r24, 0x40	; 64
+  ee:	8b bf       	out	0x3b, r24	; 59
+	MCUCR = ((1<<ISC00)|(1<<ISC01));	    /* Trigger INT0 on Rising Edge triggered */	
+  f0:	83 e0       	ldi	r24, 0x03	; 3
+  f2:	85 bf       	out	0x35, r24	; 53
+	sei();									/* Enable Global Interrupt */
+  f4:	78 94       	sei
+	ADC_Init();								/* Initialize ADC */
+  f6:	0e 94 3e 00 	call	0x7c	; 0x7c <ADC_Init>
+	TCNT0 = 0;								/* Set timer0 count zero */
+  fa:	12 be       	out	0x32, r1	; 50
+	TCCR0 = (1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS00)|(1<<CS01);/* Set Fast PWM with Fosc/64 Timer0 clock */
+  fc:	8b e6       	ldi	r24, 0x6B	; 107
+  fe:	83 bf       	out	0x33, r24	; 51
+	while(1)
+	{
+		if (Direction !=0)					/* Rotate DC motor Clockwise */
+			PORTC = 1;
+		else								/* Else rotate DC motor Anticlockwise */
+			PORTC = 2;
+ 100:	d2 e0       	ldi	r29, 0x02	; 2
+	TCNT0 = 0;								/* Set timer0 count zero */
+	TCCR0 = (1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS00)|(1<<CS01);/* Set Fast PWM with Fosc/64 Timer0 clock */
+	while(1)
+	{
+		if (Direction !=0)					/* Rotate DC motor Clockwise */
+			PORTC = 1;
+ 102:	c1 e0       	ldi	r28, 0x01	; 1
+	ADC_Init();								/* Initialize ADC */
+	TCNT0 = 0;								/* Set timer0 count zero */
+	TCCR0 = (1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS00)|(1<<CS01);/* Set Fast PWM with Fosc/64 Timer0 clock */
+	while(1)
+	{
+		if (Direction !=0)					/* Rotate DC motor Clockwise */
+ 104:	80 91 60 00 	lds	r24, 0x0060
+ 108:	88 23       	and	r24, r24
+ 10a:	11 f0       	breq	.+4      	; 0x110 <main+0x2c>
+			PORTC = 1;
+ 10c:	c5 bb       	out	0x15, r28	; 21
+ 10e:	01 c0       	rjmp	.+2      	; 0x112 <main+0x2e>
+		else								/* Else rotate DC motor Anticlockwise */
+			PORTC = 2;
+ 110:	d5 bb       	out	0x15, r29	; 21
+		OCR0 = (ADC_Read(0)/4);				/* Read ADC and map it into 0-255 to write in OCR0 register */
+ 112:	80 e0       	ldi	r24, 0x00	; 0
+ 114:	0e 94 44 00 	call	0x88	; 0x88 <ADC_Read>
+ 118:	99 23       	and	r25, r25
+ 11a:	0c f4       	brge	.+2      	; 0x11e <main+0x3a>
+ 11c:	03 96       	adiw	r24, 0x03	; 3
+ 11e:	95 95       	asr	r25
+ 120:	87 95       	ror	r24
+ 122:	95 95       	asr	r25
+ 124:	87 95       	ror	r24
+ 126:	8c bf       	out	0x3c, r24	; 60
+	}
+ 128:	ed cf       	rjmp	.-38     	; 0x104 <main+0x20>
+
+0000012a <_exit>:
+ 12a:	f8 94       	cli
+
+0000012c <__stop_program>:
+ 12c:	ff cf       	rjmp	.-2      	; 0x12c <__stop_program>

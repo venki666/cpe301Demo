@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\Online_Demo_asm\blink_delay\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\Online_Demo_asm\blink_delay\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\Online_Demo_asm\blink_delay\Debug\blink_delay.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>blink_delay.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>blink_delay.map</FILE>
+  <FILE>blink_delay.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <START><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\Online_Demo_asm\blink_delay\main.asm</FILE><LINE>13</LINE></START>
+  <DELAY_X><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\Online_Demo_asm\blink_delay\main.asm</FILE><LINE>22</LINE></DELAY_X>
+  <L1><FILE>C:\Users\VenkatesanMuthukumar\Documents\Atmel Studio\7.0\Online_Demo_asm\blink_delay\main.asm</FILE><LINE>26</LINE></L1>
+ </LABELS>
+</ASSEMBLER_INFO>

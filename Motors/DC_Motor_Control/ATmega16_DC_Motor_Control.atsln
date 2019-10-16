@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega16_DC_Motor_Control", "ATmega16_DC_Motor_Control\ATmega16_DC_Motor_Control.cproj", "{85711715-A34D-4617-ABA9-F9BD0E53D943}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Debug|AVR.ActiveCfg = Debug|AVR
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Debug|AVR.Build.0 = Debug|AVR
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Release|AVR.ActiveCfg = Release|AVR
+		{85711715-A34D-4617-ABA9-F9BD0E53D943}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
