@@ -1,8 +1,0 @@
-//class_demo_GPIO.stim 
-// Set PIN C2 (SW2) high and low repeatedly
-$repeat 2000000
-PINC |= 0x04
-#20
-PINC = 0x00
-#20
-$endrep

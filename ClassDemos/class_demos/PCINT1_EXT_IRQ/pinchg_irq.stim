@@ -1,8 +1,0 @@
-//pinchg_irq.stim 
-// Set PIN B2 (PCINT2) high and low repeatedly
-$repeat 2000000
-PINB |= 0x04
-#20
-PINB = 0x00
-#20
-$endrep
