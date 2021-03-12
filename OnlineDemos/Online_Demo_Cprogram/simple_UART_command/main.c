@@ -5,156 +5,81 @@
  * Author : VenkatesanMuthukumar
  */ 
 
-#define F_CPU 16000000UL
-#define BAUD 9600
-#define BAUD_PRESCALE (((F_CPU / (BAUD * 16UL))) - 1)
-
-#define TRUE 1
-#define FALSE 0
-
-#define CHAR_NEWLINE '\n'
-#define CHAR_RETURN '\r'
-#define RETURN_NEWLINE "\r\n"
-
 #include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/atomic.h>
-#include <string.h>
 #include <stdio.h>
 
-// The inputted commands are never going to be
-// more than 8 chars long. Volatile for the ISR.
-volatile unsigned char data_in[8];
-volatile unsigned char command_in[8];
+#ifndef F_CPU
+#define F_CPU 16000000UL
+#endif
 
-volatile unsigned char data_count;
-volatile unsigned char command_ready;
+#ifndef BAUD
+#define BAUD 9600
+#endif
+#include <util/setbaud.h>
 
-// Variables to hold current settings
-unsigned int sensitivity = 223;
+void uart_putchar(char c, FILE *stream);
+char uart_getchar(FILE *stream);
 
-void usart_putc (char send)
-{
-	// Do nothing for a bit if there is already
-	// data waiting in the hardware to be sent
-	while ((UCSR0A & (1 << UDRE0)) == 0) {};
-	UDR0 = send;
+void uart_init(void);
+
+/* http://www.ermicro.com/blog/?p=325 */
+
+FILE uart_output = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
+FILE uart_input = FDEV_SETUP_STREAM(NULL, uart_getchar, _FDEV_SETUP_READ);
+
+/* http://www.cs.mun.ca/~rod/Winter2007/4723/notes/serial/serial.html */
+
+void uart_init(void) {
+	UBRR0H = UBRRH_VALUE;
+	UBRR0L = UBRRL_VALUE;
+	
+	#if USE_2X
+	UCSR0A |= _BV(U2X0);
+	#else
+	UCSR0A &= ~(_BV(U2X0));
+	#endif
+
+	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); /* 8-bit data */
+	UCSR0B = _BV(RXEN0) | _BV(TXEN0);   /* Enable RX and TX */
 }
 
-void usart_puts (const char *send)
-{
-	// Cycle through each character individually
-	while (*send) {
-		usart_putc(*send++);
+void uart_putchar(char c, FILE *stream) {
+	if (c == '\n') {
+		uart_putchar('\r', stream);
 	}
+	loop_until_bit_is_set(UCSR0A, UDRE0);
+	UDR0 = c;
 }
 
-void usart_ok()
-{
-	usart_puts("OK\r\n");
+char uart_getchar(FILE *stream) {
+	loop_until_bit_is_set(UCSR0A, RXC0);
+	return UDR0;
 }
 
-void print_value (char *id, int *value)
-{
-	char buffer[8];
-	itoa(value, buffer, 10);
-	usart_putc(id);
-	usart_putc(':');
-	usart_puts(buffer);
-	usart_puts(RETURN_NEWLINE);
-}
+int main(void) {
 
-void copy_command ()
-{
-	// The USART might interrupt this - don't let that happen!
-	ATOMIC_BLOCK(ATOMIC_FORCEON) {
-		// Copy the contents of data_in into command_in
-		memcpy(command_in, data_in, 8);
-
-		// Now clear data_in, the USART can reuse it now
-		memset(data_in[0], 0, 8);
-	}
-}
-
-unsigned long parse_assignment ()
-{
-	char *pch;
-	char cmdValue[16];
-	// Find the position the equals sign is
-	// in the string, keep a pointer to it
-	pch = strchr(command_in, '=');
-	// Copy everything after that point into
-	// the buffer variable
-	strcpy(cmdValue, pch+1);
-	// Now turn this value into an integer and
-	// return it to the caller.
-	return atoi(cmdValue);
-}
-
-
-void process_command()
-{
-	switch (command_in[0]) {
-		case 'S':
-		if (command_in[1] == '?') {
-			// Do the query action for S
-			print_value('S', sensitivity);
-			} else if (command_in[1] == '=') {
-			sensitivity = parse_assignment();
-		}
-		break;
-		case 'M':
-		if (command_in[1] == '?') {
-			// Do the query action for M
-			} else if (command_in[1] == '=') {
-			// Do the set action for M
-		}
-		break;
-		default:
-		usart_puts("NOT RECOGNISED\r\n");
-		break;
-	}
-}
-
-int main(void)
-{
-	// Turn on USART hardware (RX, TX)
-	UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
-	// 8 bit char sizes
-	UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01);
-	// Set baud rate
-	UBRR0H = (BAUD_PRESCALE >> 8);
-	UBRR0L = BAUD_PRESCALE;
-	// Enable the USART Receive interrupt
-	UCSR0B |= (1 << RXCIE0 );
-
-	// Globally enable interrupts
-	sei();
+	uart_init();
+	stdout = &uart_output;
+	stdin  = &uart_input;
+	
+	char input;
 
 	while(1) {
-
-		if (command_ready == TRUE) {
-			copy_command();
-			process_command();
-
-			command_ready = FALSE;
-			usart_ok();
+		printf("Print the help menu here\n");
+		input = getchar();
+		printf("You wrote %c\n", input);
+		switch (input) {
+			case 'S':
+				printf("Do things for %c\n", input);
+			break;
+			case 'M':
+				printf("Do things for %c\n", input);
+			break;
+			default:
+			printf("Command not recognized\r\n");
+			break;
 		}
-
 	}
-}
 
-ISR (USART_RX_vect)
-{
-	// Get data from the USART in register
-	data_in[data_count] = UDR0;
-
-	// End of line!
-	if (data_in[data_count] == '\n') {
-		command_ready = TRUE;
-		// Reset to 0, ready to go again
-		data_count = 0;
-		} else {
-		data_count++;
-	}
+	return 0;
 }
