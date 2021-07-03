@@ -41,7 +41,7 @@ void USART_putstring(char* StringPtr){
 	
 }
 
-#define  Trigger_pin	PB0	/* Trigger pin */
+#define  Trigger_pin	PB1	/* Trigger pin */
 
 int TimerOverflow = 0;
 
@@ -56,8 +56,8 @@ int main(void)
 	long count;
 	double distance;
 	
-	DDRB = 0x01;			/* Make trigger pin as output */
-	
+	DDRB = 0x02;			/* Make trigger pin as output */
+	/* PB0 is the Echo Pin & PB1 is the Trigger in */
 	USART_init();
 	
 	sei();					/* Enable global interrupt */
@@ -88,7 +88,7 @@ int main(void)
 		while ((TIFR1 & (1 << ICF1)) == 0); /* Wait for falling edge */
 		count = ICR1 + (65535 * TimerOverflow);	/* Take value of capture register */
 		/* 8MHz Timer freq, sound speed =343 m/s, calculation mentioned in doc. */
-		distance = (double)count / 466.47;
+		distance = (double)count / (58*16);
 
 		dtostrf(distance, 2, 2, string);/* Convert distance into string */
 		strcat(string, " cm   ");
