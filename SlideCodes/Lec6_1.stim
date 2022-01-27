@@ -1,0 +1,8 @@
+//ext_irq.stim 
+// Set PIN D2 (INT0) high and low repeatedly
+$repeat 2000000
+PIND |= 0x04
+#20
+PIND = 0x00
+#20
+$endrep
