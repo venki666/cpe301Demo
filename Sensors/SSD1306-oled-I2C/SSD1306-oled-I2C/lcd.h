@@ -60,7 +60,7 @@ extern "C" {
     // i2c_start(), i2c_byte(), i2c_stop()
     
     /* TODO: define displaycontroller */
-#define SH1106                                 // or SSD1306, check datasheet of your display
+#define SSD1306 //SH1106                                 // or SSD1306, check datasheet of your display
     /* TODO: define displaymode */
 #define TEXTMODE                // TEXTMODE for only text to display,
     // GRAPHICMODE for text and graphic
