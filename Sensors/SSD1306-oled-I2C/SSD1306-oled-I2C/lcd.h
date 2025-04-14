@@ -71,7 +71,7 @@ extern "C" {
     
     // using 7-bit-adress for lcd-library
     // if you use your own library for twi check I2C-adress-handle
-#define LCD_I2C_ADR         (0x7a >> 1)    // 7 bit slave-adress without r/w-bit
+#define LCD_I2C_ADR         (0x3C)    // 7 bit slave-adress without r/w-bit
     // r/w-bit are set/unset by library
     // e.g. 8 bit slave-adress:
     // 0x78 = adress 0x3C with cleared r/w-bit (write-mode)
